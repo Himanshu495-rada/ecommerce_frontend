@@ -18,7 +18,7 @@ import {
   Info,
 } from "@phosphor-icons/react";
 
-function NavBar() {
+const NavBar: React.FC = () => {
   return (
     <div className={styles.navbar}>
       <section className={styles.section_1}>
@@ -96,6 +96,6 @@ function NavBar() {
       </section>
     </div>
   );
-}
+};
 
 export default NavBar;
