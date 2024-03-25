@@ -1,0 +1,148 @@
+/* common */
+.navbar {
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+/* common end */
+
+/* section_1 */
+.section_1 {
+  background-color: #1b6392;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #2998e2;
+  height: 52px;
+}
+
+.section_1_container {
+  display: flex;
+  align-items: center;
+}
+
+.section_1_text {
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.section_1_title {
+  font-size: 14px;
+}
+
+.section_1_container svg {
+  margin: 0 5px;
+}
+
+.section_1_line {
+  background-color: #2998e2;
+  width: 2px;
+  height: 40px;
+  margin: 0 10px;
+}
+
+.section_1_selection {
+  background: none;
+  border: none;
+  color: white;
+}
+/* section_1 end */
+
+/* section_2 */
+
+.section_2 {
+  background-color: #1b6392;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #2998e2;
+  height: 88px;
+}
+
+.section_2_title {
+  font-size: 32px;
+}
+
+.section_2_input_container {
+  display: flex;
+  align-items: center;
+  width: 650px;
+  height: 30px;
+  background-color: white;
+  padding: 10px;
+}
+
+.section_2_input {
+  width: 100%;
+  font-size: 14px;
+  border: none;
+}
+
+.section_2_input:focus {
+  border: none;
+}
+
+.section_2_icons_container svg {
+  margin: 0 10px;
+}
+/* section_2 end */
+
+/* section_3 */
+
+.section_3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid #5f6c72;
+}
+
+.section_3_div_1 {
+  display: flex;
+}
+
+.section_3_select {
+  background-color: #f2f4f5;
+  width: 150px;
+  height: 50px;
+  font-size: 14px;
+  border: none;
+  padding: 0 10px;
+  border-right: 16px solid transparent;
+}
+
+.section_3_options_container {
+  color: #5f6c72;
+  display: flex;
+  align-items: center;
+}
+
+.section_3_option {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.section_3_option:hover {
+  color: #1b6392;
+}
+
+.section_3_option p {
+  font-size: 14px;
+  margin-left: 3px;
+}
+
+.section_3_div_2 {
+  display: flex;
+  align-items: center;
+}
+
+.section_3_div_2 p {
+  font-size: 18px;
+  color: black;
+  margin-left: 5px;
+}
+
+/* section_3 end */
