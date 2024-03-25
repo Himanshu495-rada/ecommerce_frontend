@@ -153,3 +153,15 @@
 }
 
 /* section_2 end */
+
+/* section_3 */
+
+.section_3 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* section_3 end */

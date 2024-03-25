@@ -11,6 +11,8 @@ import {
   CreditCard,
   Headphones,
 } from "@phosphor-icons/react";
+import CategorySection from "../../components/CategorySection/CategorySection";
+import NewsletterSection from "../../components/NewsletterSection/NewsletterSection";
 
 const Home: React.FC = () => {
   return (
@@ -91,6 +93,11 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+      <section className={styles.section_3}>
+        <h1>Shop with categories</h1>
+        <CategorySection />
+      </section>
+      <NewsletterSection />
     </div>
   );
 };

@@ -1,0 +1,30 @@
+.carouselContainer {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.slick {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.item_container {
+  border: 1px solid #e4e7e9;
+  padding: 10px;
+}
+
+.item_container img {
+  width: 148px;
+  height: 148px;
+  margin-left: 50px;
+}
+
+.prevBtn {
+  background-color: #fa8232;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  padding: 10px;
+}
