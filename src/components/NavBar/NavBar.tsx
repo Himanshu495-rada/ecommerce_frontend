@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./NavBar.module.css";
 import {
   TwitterLogo,
@@ -16,9 +16,16 @@ import {
   ArrowsCounterClockwise,
   Headphones,
   Info,
+  List,
 } from "@phosphor-icons/react";
 
 const NavBar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className={styles.navbar}>
       <section className={styles.section_1}>
@@ -62,6 +69,10 @@ const NavBar: React.FC = () => {
           <Heart size={32} />
           <User size={32} />
         </div>
+
+        <button className={styles.toggleBtn} onClick={toggleMenu}>
+          <List />
+        </button>
       </section>
       <section className={styles.section_3}>
         <div className={styles.section_3_div_1}>

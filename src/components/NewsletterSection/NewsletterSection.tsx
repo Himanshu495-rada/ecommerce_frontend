@@ -10,15 +10,13 @@ const NewsletterSection: React.FC = () => {
         To receive promotional, season offers, new product arrival, best deails
         and etc. mails
       </p>
-      <div>
-        <input type="text" />
+      <div className={styles.input_container}>
+        <input type="text" placeholder="Email address" />
         <button>
           <p>SUBSCRIBE</p>
-          <ArrowRight />
+          <ArrowRight size={20} />
         </button>
       </div>
-      <div />
-      <div>logos</div>
     </div>
   );
 };

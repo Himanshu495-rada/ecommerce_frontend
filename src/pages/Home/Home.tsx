@@ -13,6 +13,7 @@ import {
 } from "@phosphor-icons/react";
 import CategorySection from "../../components/CategorySection/CategorySection";
 import NewsletterSection from "../../components/NewsletterSection/NewsletterSection";
+import Footer from "../../components/Footer/Footer";
 
 const Home: React.FC = () => {
   return (
@@ -98,6 +99,7 @@ const Home: React.FC = () => {
         <CategorySection />
       </section>
       <NewsletterSection />
+      <Footer />
     </div>
   );
 };
