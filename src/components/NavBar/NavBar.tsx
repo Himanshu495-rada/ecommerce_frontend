@@ -17,10 +17,16 @@ import {
   Headphones,
   Info,
   List,
+  ArrowRight,
+  Eye,
+  EyeSlash,
+  X,
 } from "@phosphor-icons/react";
 
 const NavBar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [cartCount, setCartCount] = useState<number>(5);
+  const [pwdVisible, setPwdVisible] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -30,7 +36,7 @@ const NavBar: React.FC = () => {
     <div className={styles.navbar}>
       <section className={styles.section_1}>
         <div>
-          <p className={styles.section_1_title}>Welcome to eccomerce website</p>
+          <p className={styles.section_1_title}>Welcome to ecommerce website</p>
         </div>
         <div className={styles.section_1_container}>
           <p className={styles.section_1_text}>Follow us:</p>
@@ -65,9 +71,85 @@ const NavBar: React.FC = () => {
         </div>
 
         <div className={styles.section_2_icons_container}>
-          <ShoppingCartSimple size={32} />
-          <Heart size={32} />
-          <User size={32} />
+          <div className={styles.section_2_cart_container}>
+            <ShoppingCartSimple size={32}></ShoppingCartSimple>
+
+            {cartCount > 0 ? (
+              <div className={styles.section_2_icon_cartcount}>{cartCount}</div>
+            ) : null}
+
+            <div className={styles.section_2_cart}>
+              <h1>Shopping cart ({cartCount})</h1>
+              <div className={styles.section_2_item_container}>
+                <div className={styles.section_2_item}>
+                  <img alt="item" />
+                  <div className={styles.section_2_item_text}>
+                    <p className={styles.section_2_item_title}>Item Name</p>
+                    <p className={styles.section_2_item_price}>xxx₹</p>
+                  </div>
+                  <X size={20} color="#929FA5" />
+                </div>
+                <div className={styles.section_2_item}>
+                  <img alt="item" />
+                  <div className={styles.section_2_item_text}>
+                    <p className={styles.section_2_item_title}>Item Name</p>
+                    <p className={styles.section_2_item_price}>xxx₹</p>
+                  </div>
+                  <X size={20} color="#929FA5" />
+                </div>
+                <div></div>
+              </div>
+              <button className={styles.section_2_checkout_btn}>
+                <p>CHECKOUT NOW</p>
+                <ArrowRight size={20} />
+              </button>
+              <button className={styles.section_2_viewcart_btn}>
+                <p>VIEW CART</p>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <Heart size={32} />
+          </div>
+          <div className={styles.section_2_user_container}>
+            <User size={32} />
+            <div className={styles.section_2_user_login}>
+              <h1>Sign in to your account</h1>
+              <form>
+                <label htmlFor="userName">Username</label>
+                <input type="text" id="userName" />
+                <label htmlFor="password">Password</label>
+                <div className={styles.section_2_pwd_container}>
+                  <input
+                    type={pwdVisible ? "text" : "password"}
+                    id="password"
+                  />
+                  {pwdVisible ? (
+                    <EyeSlash
+                      size={20}
+                      color="black"
+                      onClick={() => setPwdVisible(false)}
+                    />
+                  ) : (
+                    <Eye
+                      size={20}
+                      color="black"
+                      onClick={() => setPwdVisible(true)}
+                    />
+                  )}
+                </div>
+                <button type="submit">
+                  <p>Login</p>
+                  <ArrowRight size={20} />
+                </button>
+                <p className={styles.section_2_or}>Or</p>
+                <div className={styles.section_2_user_signup}>
+                  <p>CREATE ACCOUNT</p>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
 
         <button className={styles.toggleBtn} onClick={toggleMenu}>

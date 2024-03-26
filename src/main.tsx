@@ -5,11 +5,16 @@ import "./index.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Home from "./pages/Home/Home";
+import Try from "./pages/Try/Try";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/try",
+    element: <Try />,
   },
 ]);
 
