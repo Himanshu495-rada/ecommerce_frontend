@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from "./NavBar.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../../store/categorySlice";
 import {
   TwitterLogo,
   FacebookLogo,
@@ -22,14 +24,21 @@ import {
   EyeSlash,
   X,
 } from "@phosphor-icons/react";
+import { RootState } from "../../store";
 
 const NavBar: React.FC = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [cartCount, setCartCount] = useState<number>(5);
+  const [cartCount, setCartCount] = useState<number>(2);
   const [pwdVisible, setPwdVisible] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    dispatch(setCategory(e.target.value));
   };
 
   return (
@@ -158,10 +167,18 @@ const NavBar: React.FC = () => {
       </section>
       <section className={styles.section_3}>
         <div className={styles.section_3_div_1}>
-          <select name="category" className={styles.section_3_select}>
-            <option value="all">All category</option>
+          <select
+            name="category"
+            className={styles.section_3_select}
+            onChange={handleCategoryChange}
+          >
+            <option value="">All category</option>
+            <option value="computer">Computer & Laptop</option>
+            <option value="smartphone">SmartPhone</option>
+            <option value="headphone">Headphone</option>
+            <option value="tv">TV</option>
             <option value="clothing">Clothing</option>
-            <option value="electronics">Electronics</option>
+            <option value="camera">Camera & Photos</option>
           </select>
           <div className={styles.section_3_options_container}>
             <div className={styles.section_3_option}>

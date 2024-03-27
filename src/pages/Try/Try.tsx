@@ -1,52 +1,25 @@
-import React, { useState } from "react";
-import styles from "./Try.module.css";
-import { Link } from "react-router-dom";
-import { User } from "@phosphor-icons/react";
+import React from "react";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Container from "react-bootstrap/Container";
 
-const Try: React.FC = () => {
-  const [showLogin, setShowLogin] = useState(false);
-
-  const handleShowLogin = () => {
-    setShowLogin(true);
-  };
-
-  const handleHideLogin = () => {
-    setShowLogin(false);
-  };
-
+const MyNavbar: React.FC = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
-        <Link to="/">
-          <img src="logo.png" className="navbar-brand" alt="Brand Name" />
-        </Link>
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <User name="shopping-cart-simple" className="nav-icon" />
-          </li>
-          <li className="nav-item">
-            <User name="heart" className="nav-icon" />
-          </li>
-          <li className="nav-item">
-            <User name="user" className="nav-icon" onClick={handleShowLogin} />
-          </li>
-        </ul>
-        {showLogin && (
-          <div className="login-form">
-            <h5>Login</h5>
-            <form>
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" name="email" />
-              <label htmlFor="password">Password</label>
-              <input type="password" id="password" name="password" />
-              <button type="submit">Login</button>
-            </form>
-            <button onClick={handleHideLogin}>Close</button>
-          </div>
-        )}
-      </div>
-    </nav>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#link">Link</Nav.Link>
+            <Nav.Link href="#about">About</Nav.Link>
+            <Nav.Link href="#contact">Contact</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Try;
+export default MyNavbar;

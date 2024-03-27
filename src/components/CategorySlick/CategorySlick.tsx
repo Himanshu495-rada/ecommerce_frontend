@@ -1,6 +1,6 @@
 import React from "react";
 import Slider, { Settings } from "react-slick";
-import styles from "./CategorySection.module.css";
+import styles from "./CategorySlick.module.css";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import computerImg from "../../assets/computer.png";
 import smartphoneImg from "../../assets/smartphone.png";
@@ -31,7 +31,7 @@ const SamplePrevArrow: React.FC<SampleArrowProps> = (props) => {
   );
 };
 
-const CategorySection: React.FC = () => {
+const CategorySlick: React.FC = () => {
   const settings: Settings = {
     dots: false,
     infinite: true,
@@ -73,4 +73,4 @@ const CategorySection: React.FC = () => {
   );
 };
 
-export default CategorySection;
+export default CategorySlick;
