@@ -24,7 +24,6 @@ import {
   EyeSlash,
   X,
 } from "@phosphor-icons/react";
-import { RootState } from "../../store";
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();

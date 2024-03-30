@@ -24,7 +24,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <NavBar />
-      {category == "" || category == null ? (
+      {category === "" || category === null ? (
         <>
           <section className={styles.section_1}>
             <div className={styles.section_1_item1}>
