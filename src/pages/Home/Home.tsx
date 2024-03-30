@@ -22,7 +22,7 @@ const Home: React.FC = () => {
   const category = useSelector((state: RootState) => state.category.category);
 
   return (
-    <div>
+    <div style={{ backgroundColor: "white" }}>
       <NavBar />
       {category === "" || category === null ? (
         <>

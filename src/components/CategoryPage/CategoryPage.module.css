@@ -1,51 +1,100 @@
-/* styles.css */
-body {
-  font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f4f4f4;
-}
-
-.home-page {
+.home_page {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
 
-.categories {
-  flex-basis: 20%;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  height: fit-content;
+.section_1 {
+  padding: 0 20px;
+  margin: 20px;
+  width: 200px;
 }
 
-.categories ul {
+.section_1 h3 {
+  font-size: 16px;
+}
+
+.section_1 ul {
   list-style: none;
   padding: 0;
 }
 
-.categories li {
+.section_1 li {
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
-  font-weight: bold;
-  color: #333;
+  color: #5f6c72;
+  font-size: 14px;
 }
 
-.products {
-  flex-basis: 75%;
+.radioBtn {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 100%;
+  margin-right: 10px;
+  border: 1px solid #c9cfd2;
+}
+
+.radioBtnSelect {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 100%;
+  margin-right: 10px;
+  border: 7px solid #fa8232;
+}
+
+.section_2 {
+  width: 100%;
+}
+
+.section_2_filter {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  background-color: #f2f4f5;
+  padding: 0 20px;
+  margin: 20px 0;
+}
+
+.section_2_category_container {
+  display: flex;
+  margin: 0 10px;
+  align-items: center;
+}
+
+.section_2_category_container p {
+  color: black;
+  font-size: 14px;
+}
+
+.section_2_category_container svg {
+  margin-left: 5px;
+}
+
+.section_2_filter_title {
+  font-size: 14px;
+  color: #5f6c72;
+}
+
+.section_2_products_container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Responsive columns */
+  gap: 20px; /* Spacing between elements */
+  width: 100%;
 }
 
 .product {
   background: #fff;
-  margin: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: calc(33.333% - 20px);
+  margin: 20px 10px;
+  width: 200px;
   padding: 10px;
   text-align: center;
+  border: 1px solid #e4e7e9;
+}
+
+.product:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .product img {

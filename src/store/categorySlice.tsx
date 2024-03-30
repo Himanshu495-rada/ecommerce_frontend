@@ -5,7 +5,7 @@ interface CategoryState {
 }
 
 const initialState: CategoryState = {
-  category: "computer",
+  category: "Electronics",
 };
 
 const categorySlice = createSlice({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./NavBar.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCategory } from "../../store/categorySlice";
 import {
   TwitterLogo,
@@ -28,7 +28,8 @@ import {
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [cartCount, setCartCount] = useState<number>(2);
+  //const [cartCount, setCartCount] = useState<number>(2);
+  const cartCount: number = 2;
   const [pwdVisible, setPwdVisible] = useState<boolean>(false);
 
   const toggleMenu = () => {
@@ -39,6 +40,21 @@ const NavBar: React.FC = () => {
     e.preventDefault();
     dispatch(setCategory(e.target.value));
   };
+
+  const categories = [
+    "Electronics",
+    "Computer & Laptop",
+    "Computer Accessories",
+    "Smartphone",
+    "Headphone",
+    "Mobile Accessories",
+    "Gaming Console",
+    "Camera & Photo",
+    "TV & Home Appliances",
+    "Watches & Accessories",
+    "GPS & Navigation",
+    "Wearable Technology",
+  ];
 
   return (
     <div className={styles.navbar}>
@@ -172,12 +188,9 @@ const NavBar: React.FC = () => {
             onChange={handleCategoryChange}
           >
             <option value="">All category</option>
-            <option value="computer">Computer & Laptop</option>
-            <option value="smartphone">SmartPhone</option>
-            <option value="headphone">Headphone</option>
-            <option value="tv">TV</option>
-            <option value="clothing">Clothing</option>
-            <option value="camera">Camera & Photos</option>
+            {categories.map((category) => (
+              <option value={category}>{category}</option>
+            ))}
           </select>
           <div className={styles.section_3_options_container}>
             <div className={styles.section_3_option}>
