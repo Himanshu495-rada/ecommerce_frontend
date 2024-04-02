@@ -5,6 +5,7 @@ import { RootState } from "../../store";
 import product1Img from "../../assets/product1.png";
 import { setCategory } from "../../store/categorySlice";
 import { X } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
 
 const CategoryPage: React.FC = () => {
   const globalCategory = useSelector(
@@ -12,6 +13,8 @@ const CategoryPage: React.FC = () => {
   );
 
   const dispatch = useDispatch();
+
+  const nav = useNavigate();
 
   const categories = [
     "Electronics",
@@ -67,13 +70,14 @@ const CategoryPage: React.FC = () => {
   ];
 
   type ProductsProps = {
+    id: number;
     image: string;
     name: string;
     price: number;
   };
 
-  const Product: React.FC<ProductsProps> = ({ image, name, price }) => (
-    <div className={styles.product}>
+  const Product: React.FC<ProductsProps> = ({ id, image, name, price }) => (
+    <div className={styles.product} onClick={() => nav(`/product/${id}`)}>
       <img src={image} alt="image" />
       <h3>{name}</h3>
       <p>&#36; {price}₹</p>

@@ -1,0 +1,54 @@
+.page {
+  margin: 50px 20px;
+}
+
+.title {
+  font-size: 32px;
+}
+
+.description {
+  color: #5f6c72;
+  font-size: 16px;
+  width: 50%;
+}
+
+.form {
+  display: flex;
+}
+
+.form div {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.form div input {
+  width: 400px;
+  height: 30px;
+  margin: 10px 0;
+  font: 14px;
+  padding: 0 10px;
+}
+
+.info_container {
+  display: flex;
+  align-items: center;
+  color: #5f6c72;
+}
+
+.button {
+  width: 215px;
+  height: 56px;
+  background-color: #fa8232;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button p {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin-right: 5px;
+}

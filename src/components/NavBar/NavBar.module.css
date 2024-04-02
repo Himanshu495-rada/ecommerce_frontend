@@ -71,6 +71,8 @@
 .section_2_title {
   font-size: 32px;
   margin-left: 20px;
+  text-decoration: none;
+  color: white;
 }
 
 .section_2_input_container {
@@ -181,6 +183,8 @@
   width: 300px;
   border: none;
   margin: 20px 20px;
+  font-weight: bold;
+  border-radius: 2px;
 }
 
 .section_2_viewcart_btn {
@@ -188,6 +192,10 @@
   width: 300px;
   margin-bottom: 0;
   margin: 0 20px;
+  border: 1px solid #ffe7d6;
+  background-color: white;
+  font-weight: bold;
+  border-radius: 2px;
 }
 
 .section_2_user_login {
@@ -334,6 +342,7 @@
 
 .section_3_option:hover {
   color: #1b6392;
+  cursor: pointer;
 }
 
 .section_3_option p {

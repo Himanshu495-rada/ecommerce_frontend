@@ -1,0 +1,30 @@
+.section {
+  display: flex;
+  padding: 10px 20px;
+  background-color: #f2f4f5;
+  align-items: center;
+  color: #5f6c72;
+  font-size: 14px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.container svg {
+  margin: 0 10px;
+}
+
+.container:hover {
+  cursor: pointer;
+}
+
+.text {
+  color: #2da5f3;
+}
+
+.text:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Home.module.css";
 import NavBar from "../../components/NavBar/NavBar";
 import headPhoneImg from "../../assets/gaming_headphone.png";
@@ -14,12 +14,22 @@ import {
 import CategorySlick from "../../components/CategorySlick/CategorySlick";
 import NewsletterSection from "../../components/NewsletterSection/NewsletterSection";
 import Footer from "../../components/Footer/Footer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts } from "../../store/productsSlice";
 import { RootState } from "../../store";
 import CategoryPage from "../../components/CategoryPage/CategoryPage";
+import type { AppDispatch } from "../../store";
 
 const Home: React.FC = () => {
   const category = useSelector((state: RootState) => state.category.category);
+  const products = useSelector((state: RootState) => state.products);
+
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+    //console.log(products);
+  }, [dispatch, products]);
 
   return (
     <div style={{ backgroundColor: "white" }}>

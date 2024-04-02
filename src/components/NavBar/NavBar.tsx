@@ -24,9 +24,13 @@ import {
   EyeSlash,
   X,
 } from "@phosphor-icons/react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
+
+  const nav = useNavigate();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   //const [cartCount, setCartCount] = useState<number>(2);
   const cartCount: number = 2;
@@ -82,7 +86,9 @@ const NavBar: React.FC = () => {
       </section>
       <section className={styles.section_2}>
         <div>
-          <h1 className={styles.section_2_title}>Brand</h1>
+          <NavLink to="/" className={styles.section_2_title}>
+            Brand
+          </NavLink>
         </div>
 
         <div className={styles.section_2_input_container}>
@@ -127,13 +133,16 @@ const NavBar: React.FC = () => {
                 <p>CHECKOUT NOW</p>
                 <ArrowRight size={20} />
               </button>
-              <button className={styles.section_2_viewcart_btn}>
+              <button
+                className={styles.section_2_viewcart_btn}
+                onClick={() => nav("/shopping_cart")}
+              >
                 <p>VIEW CART</p>
               </button>
             </div>
           </div>
 
-          <div>
+          <div onClick={() => nav("/wishlist")}>
             <Heart size={32} />
           </div>
           <div className={styles.section_2_user_container}>
@@ -193,11 +202,17 @@ const NavBar: React.FC = () => {
             ))}
           </select>
           <div className={styles.section_3_options_container}>
-            <div className={styles.section_3_option}>
+            <div
+              className={styles.section_3_option}
+              onClick={() => nav("/track_order")}
+            >
               <MapPin size={24} />
               <p>Track Order</p>
             </div>
-            <div className={styles.section_3_option}>
+            <div
+              className={styles.section_3_option}
+              onClick={() => nav("/compare")}
+            >
               <ArrowsCounterClockwise size={24} />
               <p>Compare</p>
             </div>
