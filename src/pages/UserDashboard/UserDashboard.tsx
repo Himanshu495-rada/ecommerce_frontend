@@ -5,9 +5,13 @@ import NavInfo from "../../components/NavInfo/NavInfo";
 import Footer from "../../components/Footer/Footer";
 import { Gear, SignOut, Stack } from "@phosphor-icons/react";
 import SellerDashboard from "../../components/Dashboard/SellerDashboard/SellerDashboard";
+import authServices from "../../services/authServices";
+import { useNavigate } from "react-router-dom";
 
 const UserDashboard: React.FC = () => {
   const [content, setContent] = useState<string>("dashboard");
+
+  const nav = useNavigate();
 
   return (
     <>
@@ -43,13 +47,19 @@ const UserDashboard: React.FC = () => {
                 ? styles.section_1_li_selected
                 : styles.section_1_li
             }
-            onClick={() => setContent("logout")}
+            onClick={() => {
+              setContent("logout");
+              authServices.logout();
+              nav("/");
+            }}
           >
             <SignOut size={20} />
             <p>Log-out</p>
           </div>
         </section>
-        <SellerDashboard />
+        {localStorage.getItem("role") == "ROLE_SELLER" ? (
+          <SellerDashboard />
+        ) : null}
       </div>
       <Footer />
     </>

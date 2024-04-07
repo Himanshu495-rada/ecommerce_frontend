@@ -22,14 +22,14 @@ import type { AppDispatch } from "../../store";
 
 const Home: React.FC = () => {
   const category = useSelector((state: RootState) => state.category.category);
-  const products = useSelector((state: RootState) => state.products);
+  //const products = useSelector((state: RootState) => state.products);
 
-  const dispatch: AppDispatch = useDispatch();
+  //const dispatch: AppDispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-    //console.log(products);
-  }, [dispatch, products]);
+  // useEffect(() => {
+  //   //dispatch(fetchProducts());
+  //   //console.log(products);
+  // }, [dispatch, products]);
 
   return (
     <div style={{ backgroundColor: "white" }}>

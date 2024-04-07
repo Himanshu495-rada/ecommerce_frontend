@@ -25,6 +25,23 @@ import {
   X,
 } from "@phosphor-icons/react";
 import { NavLink, useNavigate } from "react-router-dom";
+import authServices from "../../services/authServices";
+import { ToastContainer, toast } from "react-toastify";
+
+interface LoginData {
+  usernameOrEmail: string;
+  password: string;
+}
+
+interface SignupData {
+  username: string;
+  password: string;
+  name: string;
+  email: string;
+  role: {
+    roleName: string;
+  };
+}
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,6 +52,13 @@ const NavBar: React.FC = () => {
   //const [cartCount, setCartCount] = useState<number>(2);
   const cartCount: number = 2;
   const [pwdVisible, setPwdVisible] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [roleName, setRoleName] = useState<string>("");
+
+  const [formContent, setFormContent] = useState<string>("login");
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -43,6 +67,47 @@ const NavBar: React.FC = () => {
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     dispatch(setCategory(e.target.value));
+  };
+
+  const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setRoleName(e.target.value);
+  };
+
+  const handleLogin = async () => {
+    console.log("Logging in");
+    const data: LoginData = {
+      usernameOrEmail: username,
+      password: password,
+    };
+    const response = await authServices.login(data);
+    console.log(response);
+    if (response) {
+      toast("Logged in successfully 🥳🥳");
+    } else {
+      toast("Error while loggin in 😢");
+    }
+  };
+
+  const handleSignup = async () => {
+    console.log("Signing up");
+    const data: SignupData = {
+      username: username,
+      password: password,
+      email: email,
+      name: name,
+      role: {
+        roleName: roleName,
+      },
+    };
+    await authServices.signup(data);
+    setFormContent("login");
+  };
+
+  const handleProfileCheck = () => {
+    if (localStorage.getItem("jwtToken") !== null) {
+      nav("/user_dashboard");
+    }
   };
 
   const categories = [
@@ -145,43 +210,112 @@ const NavBar: React.FC = () => {
           <div onClick={() => nav("/wishlist")}>
             <Heart size={32} />
           </div>
-          <div className={styles.section_2_user_container}>
+          <div
+            className={styles.section_2_user_container}
+            onClick={handleProfileCheck}
+          >
             <User size={32} />
-            <div className={styles.section_2_user_login}>
-              <h1>Sign in to your account</h1>
-              <form>
-                <label htmlFor="userName">Username</label>
-                <input type="text" id="userName" />
-                <label htmlFor="password">Password</label>
-                <div className={styles.section_2_pwd_container}>
-                  <input
-                    type={pwdVisible ? "text" : "password"}
-                    id="password"
-                  />
-                  {pwdVisible ? (
-                    <EyeSlash
-                      size={20}
-                      color="black"
-                      onClick={() => setPwdVisible(false)}
+            {localStorage.getItem("jwtToken") == null ? (
+              <div className={styles.section_2_user_login}>
+                <h1>Sign in to your account</h1>
+                {formContent == "login" ? (
+                  <form onSubmit={(e) => e.preventDefault()}>
+                    <label htmlFor="userName">Username</label>
+                    <input
+                      type="text"
+                      id="userName"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
                     />
-                  ) : (
-                    <Eye
-                      size={20}
-                      color="black"
-                      onClick={() => setPwdVisible(true)}
+                    <label htmlFor="password">Password</label>
+                    <div className={styles.section_2_pwd_container}>
+                      <input
+                        type={pwdVisible ? "text" : "password"}
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                      {pwdVisible ? (
+                        <EyeSlash
+                          size={20}
+                          color="black"
+                          onClick={() => setPwdVisible(false)}
+                        />
+                      ) : (
+                        <Eye
+                          size={20}
+                          color="black"
+                          onClick={() => setPwdVisible(true)}
+                        />
+                      )}
+                    </div>
+                    <button type="submit" onClick={handleLogin}>
+                      <p>Login</p>
+                      <ArrowRight size={20} />
+                    </button>
+                    <p className={styles.section_2_or}>Or</p>
+                    <div
+                      className={styles.section_2_user_signup}
+                      onClick={() => setFormContent("signup")}
+                    >
+                      <p>CREATE ACCOUNT</p>
+                    </div>
+                  </form>
+                ) : (
+                  <form onSubmit={(e) => e.preventDefault()}>
+                    <label htmlFor="userName">Username</label>
+                    <input
+                      type="text"
+                      id="userName"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
                     />
-                  )}
-                </div>
-                <button type="submit">
-                  <p>Login</p>
-                  <ArrowRight size={20} />
-                </button>
-                <p className={styles.section_2_or}>Or</p>
-                <div className={styles.section_2_user_signup}>
-                  <p>CREATE ACCOUNT</p>
-                </div>
-              </form>
-            </div>
+                    <label htmlFor="password">Password</label>
+                    <div className={styles.section_2_pwd_container}>
+                      <input
+                        type={pwdVisible ? "text" : "password"}
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                      {pwdVisible ? (
+                        <EyeSlash
+                          size={20}
+                          color="black"
+                          onClick={() => setPwdVisible(false)}
+                        />
+                      ) : (
+                        <Eye
+                          size={20}
+                          color="black"
+                          onClick={() => setPwdVisible(true)}
+                        />
+                      )}
+                    </div>
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="text"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label htmlFor="role">Select Role</label>
+                    <select name="role" id="role" onChange={handleRoleChange}>
+                      <option value="ROLE_COSTOMER">Customer</option>
+                      <option value="ROLE_SELLER">Seller</option>
+                    </select>
+                    <button type="submit" onClick={handleSignup}>
+                      <p>Signup</p>
+                      <ArrowRight size={20} />
+                    </button>
+                  </form>
+                )}
+              </div>
+            ) : null}
           </div>
         </div>
 
@@ -231,6 +365,7 @@ const NavBar: React.FC = () => {
           <p>+91 9890685961</p>
         </div>
       </section>
+      <ToastContainer />
     </div>
   );
 };

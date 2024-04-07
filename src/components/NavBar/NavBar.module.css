@@ -229,6 +229,15 @@
   margin: 10px 0;
 }
 
+.section_2_user_login select {
+  width: 350px;
+  height: 30px;
+  border: 1px solid #e4e7e9;
+  border-radius: 5px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
 .section_2_user_login button {
   background-color: #fa8232;
   border: none;
