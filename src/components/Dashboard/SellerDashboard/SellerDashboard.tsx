@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./SellerDashboard.module.css";
 import headphoneImg from "../../../assets/gaming_headphone.png";
 import Modal from "react-modal";
-import { ToastContainer, Toast, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Product {
   name: string;
