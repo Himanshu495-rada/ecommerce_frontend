@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import productServices from "../services/productServices";
 
 interface Product {
   productId: number;
@@ -34,10 +35,10 @@ const initialState: {
 
 // Function to fetch products from an API
 export const fetchProducts = createAsyncThunk<Product[]>(
-  "products/fetchProducts",
+  "fetchProducts",
   async () => {
-    const response = await axios.get(import.meta.env.VITE_BACKEND_URL); // Replace with your actual API endpoint
-    return response.data as Product[];
+    const data = await productServices.getAllProducts();
+    return data as Product[];
   }
 );
 

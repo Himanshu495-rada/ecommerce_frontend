@@ -16,20 +16,24 @@ import NewsletterSection from "../../components/NewsletterSection/NewsletterSect
 import Footer from "../../components/Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../store/productsSlice";
+import { fetchCategories } from "../../store/categoriesSlice";
 import { RootState } from "../../store";
 import CategoryPage from "../../components/CategoryPage/CategoryPage";
 import type { AppDispatch } from "../../store";
 
 const Home: React.FC = () => {
   const category = useSelector((state: RootState) => state.category.category);
-  //const products = useSelector((state: RootState) => state.products);
 
-  //const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
-  // useEffect(() => {
-  //   //dispatch(fetchProducts());
-  //   //console.log(products);
-  // }, [dispatch, products]);
+  const getData = async () => {
+    await dispatch(fetchProducts());
+    await dispatch(fetchCategories());
+  };
+
+  useEffect(() => {
+    getData();
+  }, [dispatch]);
 
   return (
     <div style={{ backgroundColor: "white" }}>

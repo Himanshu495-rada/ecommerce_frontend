@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./NavBar.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "../../store/categorySlice";
 import {
   TwitterLogo,
@@ -27,6 +27,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import authServices from "../../services/authServices";
 import { ToastContainer, toast } from "react-toastify";
+import { RootState } from "../../store";
 
 interface LoginData {
   usernameOrEmail: string;
@@ -47,6 +48,8 @@ const NavBar: React.FC = () => {
   const dispatch = useDispatch();
 
   const nav = useNavigate();
+
+  const categories = useSelector((state: RootState) => state.categories);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   //const [cartCount, setCartCount] = useState<number>(2);
@@ -110,20 +113,20 @@ const NavBar: React.FC = () => {
     }
   };
 
-  const categories = [
-    "Electronics",
-    "Computer & Laptop",
-    "Computer Accessories",
-    "Smartphone",
-    "Headphone",
-    "Mobile Accessories",
-    "Gaming Console",
-    "Camera & Photo",
-    "TV & Home Appliances",
-    "Watches & Accessories",
-    "GPS & Navigation",
-    "Wearable Technology",
-  ];
+  // const categories = [
+  //   "Electronics",
+  //   "Computer & Laptop",
+  //   "Computer Accessories",
+  //   "Smartphone",
+  //   "Headphone",
+  //   "Mobile Accessories",
+  //   "Gaming Console",
+  //   "Camera & Photo",
+  //   "TV & Home Appliances",
+  //   "Watches & Accessories",
+  //   "GPS & Navigation",
+  //   "Wearable Technology",
+  // ];
 
   return (
     <div className={styles.navbar}>
@@ -325,16 +328,23 @@ const NavBar: React.FC = () => {
       </section>
       <section className={styles.section_3}>
         <div className={styles.section_3_div_1}>
-          <select
-            name="category"
-            className={styles.section_3_select}
-            onChange={handleCategoryChange}
-          >
-            <option value="">All category</option>
-            {categories.map((category) => (
-              <option value={category}>{category}</option>
-            ))}
-          </select>
+          {categories.loading ? (
+            <h1>Loading</h1>
+          ) : (
+            <select
+              name="category"
+              className={styles.section_3_select}
+              onChange={handleCategoryChange}
+            >
+              <option value="">All category</option>
+              {categories.categories.map((category) => (
+                <option value={category.categoryName} key={category.categoryId}>
+                  {category.categoryName}
+                </option>
+              ))}
+            </select>
+          )}
+
           <div className={styles.section_3_options_container}>
             <div
               className={styles.section_3_option}

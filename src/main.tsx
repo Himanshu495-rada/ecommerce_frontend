@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import Home from "./pages/Home/Home";
 import store from "./store";
+import { fetchProducts } from "./store/productsSlice";
+import { fetchCategories } from "./store/categoriesSlice";
 import Product from "./pages/Product/Product";
 import TrackOrder from "./pages/TrackOrder/TrackOrder";
 import Wishlist from "./pages/Wishlist/Wishlist";
@@ -53,3 +55,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </React.StrictMode>
   </Provider>
 );
+
+const getData = async () => {
+  await store.dispatch(fetchProducts());
+  await store.dispatch(fetchCategories());
+};
+
+getData();

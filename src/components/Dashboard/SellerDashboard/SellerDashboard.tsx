@@ -1,9 +1,12 @@
 import { ArrowRight, MagnifyingGlass, X, XCircle } from "@phosphor-icons/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./SellerDashboard.module.css";
 import headphoneImg from "../../../assets/gaming_headphone.png";
 import Modal from "react-modal";
+import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { RootState } from "../../../store";
+import productServices from "../../../services/productServices";
 
 interface Product {
   name: string;
@@ -11,11 +14,12 @@ interface Product {
   actual_price: number;
   selling_price: number;
   quantity: number;
-  image: string | null;
+  image: File | null;
+  categoryId: number;
 }
 
 const SellerDashboard: React.FC = () => {
-  const [modalState, setModalState] = useState<boolean>(true);
+  const [modalState, setModalState] = useState<boolean>(false);
 
   const [product, setProduct] = useState<Product>({
     name: "",
@@ -24,9 +28,13 @@ const SellerDashboard: React.FC = () => {
     selling_price: 0,
     quantity: 0,
     image: null,
+    categoryId: null,
   });
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const categories = useSelector(
+    (state: RootState) => state.categories.categories
+  );
 
   const handleOpenModal = () => {
     setModalState(true);
@@ -43,13 +51,18 @@ const SellerDashboard: React.FC = () => {
     setProduct({ ...product, [name]: value });
   };
 
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setProduct({ ...product, [name]: value });
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0];
     if (imageFile) {
       const reader = new FileReader();
       reader.onload = (e) => {
         setPreviewImage(e.target?.result?.toString() || null);
-        setProduct({ ...product, image: e.target?.result?.toString() || null });
+        setProduct({ ...product, image: imageFile || null });
       };
       reader.readAsDataURL(imageFile);
     } else {
@@ -64,16 +77,32 @@ const SellerDashboard: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(product);
-    toast("Product uploaded successfully");
-    setProduct({
-      name: "",
-      description: "",
-      actual_price: 0,
-      selling_price: 0,
-      quantity: 0,
-      image: null,
-    });
+    const formData = new FormData();
+    const userId: string | null = localStorage.getItem("userId");
+    formData.append("productName", product.name);
+    formData.append("productDescription", product.description);
+    formData.append("productPrice", product.actual_price.toString());
+    formData.append("sellingPrice", product.selling_price.toString());
+    formData.append("remainingQuantity", product.quantity.toString());
+    formData.append("imageFile", product.image);
+    formData.append("userId", userId);
+    formData.append("categoryId", product.categoryId.toString());
+
+    const token: string = localStorage.getItem("jwtToken");
+    const response = productServices.addProduct(formData, token);
+    if (response !== null) {
+      setProduct({
+        name: "",
+        description: "",
+        actual_price: 0,
+        selling_price: 0,
+        quantity: 0,
+        image: null,
+        categoryId: 0,
+      });
+      setPreviewImage(null);
+      toast("Product added successfully 🥳🥳");
+    }
   };
 
   return (
@@ -194,6 +223,24 @@ const SellerDashboard: React.FC = () => {
                   required
                 />
               </div>
+              <div className={styles.form_detail_container_field}>
+                <label htmlFor="category">Category:</label>
+                <select
+                  name="categoryId"
+                  id="category"
+                  onChange={handleCategoryChange}
+                >
+                  <option value={1}>Select category</option>
+                  {categories.map((category) => (
+                    <option
+                      value={category.categoryId}
+                      key={category.categoryId}
+                    >
+                      {category.categoryName}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className={styles.form_image_container}>
               <div className={styles.form_image_header_container}>
@@ -203,6 +250,7 @@ const SellerDashboard: React.FC = () => {
                   name="image"
                   accept="image/*"
                   onChange={handleImageChange}
+                  required
                 />
               </div>
               {previewImage && (
