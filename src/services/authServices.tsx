@@ -14,10 +14,6 @@ interface SignupData {
   password: string;
 }
 
-interface ApiResponse {
-  accessToken: string;
-}
-
 const authServices = {
   login: async (data: LoginData): Promise<boolean> => {
     try {

@@ -16,6 +16,7 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import Billing from "./pages/Billing/Billing";
 import UserDashboard from "./pages/UserDashboard/UserDashboard";
+import { fetchCartItems } from "./store/cartItemsSlice";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 const getData = async () => {
   await store.dispatch(fetchProducts());
   await store.dispatch(fetchCategories());
+  await store.dispatch(fetchCartItems());
 };
 
 getData();

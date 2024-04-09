@@ -1,0 +1,86 @@
+.page {
+  display: flex;
+  padding: 20px;
+}
+
+/* section_1 */
+
+.section_1_row1 {
+  display: flex;
+}
+
+.section_1_infoContainer {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.section_1_infoContainer label {
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.section_1_infoContainer input {
+  border: 1px solid #e4e7e9;
+  height: 30px;
+}
+
+.section_1_infoContainer select {
+  border: 1px solid #e4e7e9;
+  height: 30px;
+}
+
+.section_1_row2 {
+  margin-top: 20px;
+}
+/* section_1 end */
+
+/* section_2 */
+
+.section_2 {
+  border: 1px solid #e4e7e9;
+  padding: 20px;
+  margin-left: 20px;
+}
+
+.section_2_items_container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.section_2_items_container p {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.cart_details_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.breakLine {
+  width: 100%;
+  border-top: 1px solid #e4e7e9;
+  margin-bottom: 20px;
+}
+
+.section_2_proceed_btn {
+  background-color: #fa8232;
+  width: 100%;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section_2_proceed_btn svg {
+  margin-left: 10px;
+}
+
+/* section_2 end */

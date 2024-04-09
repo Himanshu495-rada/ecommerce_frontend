@@ -7,6 +7,8 @@ import { Gear, SignOut, Stack } from "@phosphor-icons/react";
 import SellerDashboard from "../../components/Dashboard/SellerDashboard/SellerDashboard";
 import authServices from "../../services/authServices";
 import { useNavigate } from "react-router-dom";
+import CustomerDashboard from "../../components/Dashboard/CustomerDashboard/CustomerDashboard";
+import AdminDashboard from "../../components/Dashboard/AdminDashboard/AdminDashboard";
 
 const UserDashboard: React.FC = () => {
   const [content, setContent] = useState<string>("dashboard");
@@ -59,6 +61,10 @@ const UserDashboard: React.FC = () => {
         </section>
         {localStorage.getItem("role") == "ROLE_SELLER" ? (
           <SellerDashboard />
+        ) : localStorage.getItem("role") == "ROLE_CUSTOMER" ? (
+          <CustomerDashboard />
+        ) : localStorage.getItem("role") == "ROLE_ADMIN" ? (
+          <AdminDashboard />
         ) : null}
       </div>
       <Footer />

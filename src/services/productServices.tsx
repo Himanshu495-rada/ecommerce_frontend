@@ -1,30 +1,22 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 
-// "productId": 3,
-//         "productName": "samsung a53",
-//         "productDescription": "latest 5g smartphone",
-//         "productPrice": 32000.0,
-//         "sellingPrice": 0.0,
-//         "remainingQuantity": 100,
-//         "image": null,
-//         "category": {
-//             "categoryId": 1,
-//             "categoryName": "smartphone"
-//         },
-//         "user": {
-//             "userId": 3,
-//             "username": "anand69",
-//             "password": "$2a$10$vzYBhU8wPuXPzGoZFW88yuA/M2YJbW24MjlwGzBrDjhyfwomaWOJe",
-//             "name": "Anand",
-//             "email": "anand@gmail.com",
-//             "role": {
-//                 "roleId": 2,
-//                 "roleName": "ROLE_SELLER"
-//             }
-//         }
+interface Category {
+  categoryId: number;
+  categoryName: string;
+}
+
+interface User {
+  userId: number;
+  username: string;
+  name: string;
+  email: string;
+  role: {
+    roleId: number;
+    roleName: string;
+  };
+}
 
 interface Product {
   productId: number;
@@ -34,24 +26,15 @@ interface Product {
   sellingPrice: number;
   remainingQuantity: number;
   image: string;
-  category: {
-    categoryId: number;
-    categoryName: string;
-  };
-  user: {
-    userId: number;
-    username: string;
-    name: string;
-    email: string;
-    role: {
-      roleId: number;
-      roleName: string;
-    };
-  };
+  category: Category;
+  user: User;
 }
 
+const token: string | null = localStorage.getItem("jwtToken");
+const userId: string | null = localStorage.getItem("userId");
+
 const productServices = {
-  addProduct: async (data, token: string): Promise<Product> => {
+  addProduct: async (data: FormData): Promise<Product> => {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -59,13 +42,66 @@ const productServices = {
       },
     };
     const response = await axios.post(`${baseURL}/product`, data, config);
-    console.log(response);
+    //console.log(response);
+    return response.data as Product;
+  },
+
+  getProductById: async (productId: string | undefined): Promise<Product> => {
+    const response = await axios.get(`${baseURL}/product/${productId}`);
     return response.data as Product;
   },
 
   getAllProducts: async (): Promise<Product[]> => {
     const response = await axios.get(`${baseURL}/product`);
     return response.data as Product[];
+  },
+
+  getAllSellersProducts: async (): Promise<Product[]> => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get(
+      `${baseURL}/product/seller/${userId}`,
+      config
+    );
+    //console.log(response);
+    return response.data as Product[];
+  },
+
+  updateProduct: async (
+    data: FormData,
+    productId: number
+  ): Promise<Product> => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    const response = await axios.put(
+      `${baseURL}/product/${productId}`,
+      data,
+      config
+    );
+    //console.log(response);
+    return response.data as Product;
+  },
+
+  deleteProduct: async (productId: number): Promise<boolean> => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.delete(
+      `${baseURL}/product/${productId}`,
+      config
+    );
+    if (response.status == 204) return true;
+    else return false;
   },
 };
 

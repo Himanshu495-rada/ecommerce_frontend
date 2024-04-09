@@ -1,0 +1,36 @@
+.add_category_btn {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fa8232;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 2px;
+}
+
+.add_category_btn svg {
+  margin: 0 10px;
+}
+
+.category_container {
+  border: 1px solid #e4e7e9;
+  padding: 20px;
+  width: 500px;
+}
+
+.category_container table {
+  border: 1px solid #e4e7e9;
+  padding: 10px;
+  width: 90%;
+}
+
+.category_container table th {
+  text-align: start;
+  background-color: #e4e7e9;
+}
+
+.modal_form input {
+}

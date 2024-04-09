@@ -14,31 +14,18 @@ import {
 import CategorySlick from "../../components/CategorySlick/CategorySlick";
 import NewsletterSection from "../../components/NewsletterSection/NewsletterSection";
 import Footer from "../../components/Footer/Footer";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../../store/productsSlice";
-import { fetchCategories } from "../../store/categoriesSlice";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import CategoryPage from "../../components/CategoryPage/CategoryPage";
-import type { AppDispatch } from "../../store";
+import ProductsPage from "../../components/ProductsPage/ProductsPage";
 
 const Home: React.FC = () => {
   const category = useSelector((state: RootState) => state.category.category);
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const getData = async () => {
-    await dispatch(fetchProducts());
-    await dispatch(fetchCategories());
-  };
-
-  useEffect(() => {
-    getData();
-  }, [dispatch]);
+  const search = useSelector((state: RootState) => state.search.search);
 
   return (
     <div style={{ backgroundColor: "white" }}>
       <NavBar />
-      {category === "" || category === null ? (
+      {search == "" && category == "" ? (
         <>
           <section className={styles.section_1}>
             <div className={styles.section_1_item1}>
@@ -127,7 +114,7 @@ const Home: React.FC = () => {
           <NewsletterSection />
         </>
       ) : (
-        <CategoryPage />
+        <ProductsPage />
       )}
 
       <Footer />

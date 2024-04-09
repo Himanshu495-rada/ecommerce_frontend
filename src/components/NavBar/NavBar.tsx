@@ -28,6 +28,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import authServices from "../../services/authServices";
 import { ToastContainer, toast } from "react-toastify";
 import { RootState } from "../../store";
+import { setSearch } from "../../store/searchSlice";
 
 interface LoginData {
   usernameOrEmail: string;
@@ -46,14 +47,18 @@ interface SignupData {
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
-
   const nav = useNavigate();
 
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
+
   const categories = useSelector((state: RootState) => state.categories);
+  const category = useSelector((state: RootState) => state.category.category);
+  const search = useSelector((state: RootState) => state.search.search);
+  const cartItems = useSelector(
+    (state: RootState) => state.cartItems.cartItems
+  );
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  //const [cartCount, setCartCount] = useState<number>(2);
-  const cartCount: number = 2;
   const [pwdVisible, setPwdVisible] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -70,6 +75,11 @@ const NavBar: React.FC = () => {
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     dispatch(setCategory(e.target.value));
+  };
+
+  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    dispatch(setSearch(e.target.value));
   };
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -164,51 +174,64 @@ const NavBar: React.FC = () => {
             type="text"
             placeholder="Search for anything..."
             className={styles.section_2_input}
+            value={search}
+            onChange={handleChangeSearch}
           />
           <MagnifyingGlass size={20} color="black" />
         </div>
 
         <div className={styles.section_2_icons_container}>
-          <div className={styles.section_2_cart_container}>
-            <ShoppingCartSimple size={32}></ShoppingCartSimple>
+          {cartItems.length > 0 ? (
+            <div className={styles.section_2_cart_container}>
+              <ShoppingCartSimple size={32}></ShoppingCartSimple>
 
-            {cartCount > 0 ? (
-              <div className={styles.section_2_icon_cartcount}>{cartCount}</div>
-            ) : null}
-
-            <div className={styles.section_2_cart}>
-              <h1>Shopping cart ({cartCount})</h1>
-              <div className={styles.section_2_item_container}>
-                <div className={styles.section_2_item}>
-                  <img alt="item" />
-                  <div className={styles.section_2_item_text}>
-                    <p className={styles.section_2_item_title}>Item Name</p>
-                    <p className={styles.section_2_item_price}>xxx₹</p>
-                  </div>
-                  <X size={20} color="#929FA5" />
-                </div>
-                <div className={styles.section_2_item}>
-                  <img alt="item" />
-                  <div className={styles.section_2_item_text}>
-                    <p className={styles.section_2_item_title}>Item Name</p>
-                    <p className={styles.section_2_item_price}>xxx₹</p>
-                  </div>
-                  <X size={20} color="#929FA5" />
-                </div>
-                <div></div>
+              <div className={styles.section_2_icon_cartcount}>
+                {cartItems.length}
               </div>
-              <button className={styles.section_2_checkout_btn}>
-                <p>CHECKOUT NOW</p>
-                <ArrowRight size={20} />
-              </button>
-              <button
-                className={styles.section_2_viewcart_btn}
-                onClick={() => nav("/shopping_cart")}
-              >
-                <p>VIEW CART</p>
-              </button>
+
+              <div className={styles.section_2_cart}>
+                <h1>Shopping cart ({cartItems.length})</h1>
+                <div className={styles.section_2_item_container}>
+                  {cartItems.map((item) => (
+                    <div
+                      className={styles.section_2_item}
+                      key={item.cartItemId}
+                    >
+                      <img
+                        src={`${baseURL}/image/product/${item.product.image}`}
+                        alt="item"
+                      />
+                      <div className={styles.section_2_item_text}>
+                        <p className={styles.section_2_item_title}>
+                          {item.product.productName}
+                        </p>
+                        <p className={styles.section_2_item_title}>
+                          Quantity: {item.quantity}
+                        </p>
+                        <p className={styles.section_2_item_price}>
+                          {item.product.sellingPrice * item.quantity}₹
+                        </p>
+                      </div>
+                      <X size={20} color="#929FA5" />
+                    </div>
+                  ))}
+                </div>
+                <button
+                  className={styles.section_2_checkout_btn}
+                  onClick={() => nav("/shopping_cart/billing")}
+                >
+                  <p>CHECKOUT NOW</p>
+                  <ArrowRight size={20} />
+                </button>
+                <button
+                  className={styles.section_2_viewcart_btn}
+                  onClick={() => nav("/shopping_cart")}
+                >
+                  <p>VIEW CART</p>
+                </button>
+              </div>
             </div>
-          </div>
+          ) : null}
 
           <div onClick={() => nav("/wishlist")}>
             <Heart size={32} />
@@ -335,6 +358,7 @@ const NavBar: React.FC = () => {
               name="category"
               className={styles.section_3_select}
               onChange={handleCategoryChange}
+              value={category}
             >
               <option value="">All category</option>
               {categories.categories.map((category) => (
