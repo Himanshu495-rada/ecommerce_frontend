@@ -329,6 +329,13 @@ const NavBar: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                    <label htmlFor="name">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
                     <label htmlFor="role">Select Role</label>
                     <select name="role" id="role" onChange={handleRoleChange}>
                       <option value="ROLE_COSTOMER">Customer</option>
